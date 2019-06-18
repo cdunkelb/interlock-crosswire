@@ -2,7 +2,7 @@
 <body>
 I'm the cat container.</br>
 Doge... Please respond.</br>
-<img src="https://dog.cdunkelb.com:9443/dog.jpg">
+<img src="https://dog.example.com:9443/dog.jpg">
 <script>
 function reqListener () {
   console.log(this.responseText);
@@ -10,7 +10,7 @@ function reqListener () {
 
 var oReq = new XMLHttpRequest();
 oReq.addEventListener("load", reqListener);
-oReq.open("GET", "https://dog.cdunkelb.com:9443/dog.txt");
+oReq.open("GET", "https://dog.example.com:9443/dog.txt");
 oReq.send();
 </script>
 </body>
