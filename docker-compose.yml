@@ -6,7 +6,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        com.docker.lb.hosts: cat.cdunkelb.com
+        com.docker.lb.hosts: cat.example.com
         com.docker.lb.network: animal
         com.docker.lb.port: 443
         com.docker.lb.ssl_passthrough: "true"
@@ -25,7 +25,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        com.docker.lb.hosts: dog.cdunkelb.com
+        com.docker.lb.hosts: dog.example.com
         com.docker.lb.network: animal
         com.docker.lb.port: 443
         com.docker.lb.ssl_passthrough: "true"
@@ -45,6 +45,6 @@ networks:
 
 secrets:
   animal_private_key:
-    file: /home/carldunkelberger/lab/working-certs/ucp-server-key.pem
+    file: animal-key.pem
   animal_public_key:
-    file: /home/carldunkelberger/lab/working-certs/ucp-server-cert.pem
+    file: animal-cert.pem
