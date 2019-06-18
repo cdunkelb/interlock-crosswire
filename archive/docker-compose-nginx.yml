@@ -1,0 +1,20 @@
+version: "3.2"
+
+services:
+  demo:
+    image: cdunkelb/https-nginx:1.0
+    deploy:
+      replicas: 1
+      labels:
+        com.docker.lb.hosts: nginx-backend.cdunkelb.com
+        com.docker.lb.network: demo-network
+        com.docker.lb.port: 443
+        com.docker.lb.ssl_passthrough: "true"
+    environment:
+      METADATA: end-to-end-TLS
+    networks:
+      - demo-network
+
+networks:
+  demo-network:
+    driver: overlay

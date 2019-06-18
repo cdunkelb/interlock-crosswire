@@ -1,0 +1,50 @@
+version: "3.2"
+
+services:
+  cat:
+    image: cdunkelb/https-nginx:cat-v5
+    deploy:
+      replicas: 1
+      labels:
+        com.docker.lb.hosts: cat.cdunkelb.com
+        com.docker.lb.network: animal
+        com.docker.lb.port: 443
+        com.docker.lb.ssl_passthrough: "true"
+    environment:
+      METADATA: end-to-end-TLS
+    networks:
+      - animal
+    secrets:
+      - source: animal_private_key
+        target: /etc/nginx/key.pem
+      - source: animal_public_key
+        target: /etc/nginx/cert.pem
+
+  dog:
+    image: cdunkelb/https-nginx:dog-v5
+    deploy:
+      replicas: 1
+      labels:
+        com.docker.lb.hosts: dog.cdunkelb.com
+        com.docker.lb.network: animal
+        com.docker.lb.port: 443
+        com.docker.lb.ssl_passthrough: "true"
+    environment:
+      METADATA: end-to-end-TLS
+    networks:
+      - animal
+    secrets:
+      - source: animal_private_key
+        target: /etc/nginx/key.pem
+      - source: animal_public_key
+        target: /etc/nginx/cert.pem
+
+networks:
+  animal:
+    driver: overlay
+
+secrets:
+  animal_private_key:
+    file: /home/carldunkelberger/lab/working-certs/ucp-server-key.pem
+  animal_public_key:
+    file: /home/carldunkelberger/lab/working-certs/ucp-server-cert.pem
